@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière Güzellik | Premium Demo</title>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-hover: #b5952f;
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --text-light: #f5f5f5;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: var(--dark-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .btn {
+            background-color: var(--gold);
+            color: var(--darker-bg);
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--gold);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        .btn-outline:hover {
+            background-color: var(--gold);
+            color: var(--darker-bg);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.9)), url('https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1.2s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1.2s ease 0.3s both;
+        }
+
+        .hero .btn {
+            animation: fadeInUp 1.2s ease 0.6s both;
+        }
+
+        /* --- SERVICES --- */
+        .services {
+            padding: 6rem 5%;
+            text-align: center;
+            background-color: var(--dark-bg);
+        }
+
+        .services h2 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 3rem;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .service-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+        }
+
+        /* --- PRICING --- */
+        .pricing { padding: 6rem 5%; background-color: var(--darker-bg); text-align: center; }
+        .pricing h2 { font-size: 3rem; color: var(--gold); margin-bottom: 3rem; }
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .price-card { background: var(--card-bg); padding: 3rem 2rem; border-radius: 15px; border: 1px solid rgba(212,175,55,0.1); transition: all 0.4s ease; position: relative; overflow: hidden;}
+        .price-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15); border-color: var(--gold); }
+        .price-card.popular::before { content: 'En Çok Tercih Edilen'; position: absolute; top: 25px; right: -40px; background: var(--gold); color: var(--darker-bg); padding: 0.5rem 4rem; transform: rotate(45deg); font-size: 0.8rem; font-weight: bold; z-index: 10;}
+        .price-card h3 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-light); }
+        .price-amount { font-size: 3rem; color: var(--gold); font-weight: bold; margin-bottom: 2rem; font-family: 'Playfair Display', serif;}
+        .price-amount span { font-size: 1.2rem; color: var(--text-muted); font-weight: normal; font-family: 'Poppins', sans-serif;}
+        .price-list { list-style: none; margin-bottom: 2.5rem; text-align: left; }
+        .price-list li { margin-bottom: 1rem; padding-left: 2rem; position: relative; color: #ddd; }
+        .price-list li::before { content: '\f00c'; font-family: 'FontAwesome'; color: var(--gold); position: absolute; left: 0; font-weight: bold; }
+
+        /* --- 3-STEP APPOINTMENT --- */
+        .appointment-section { padding: 6rem 5%; background-color: var(--dark-bg); text-align: center; }
+        .appointment-section h2 { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
+        .appointment-section > p { color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem; }
+        .form-container { background: var(--card-bg); max-width: 600px; margin: 0 auto; padding: 3rem; border-radius: 15px; border: 1px solid rgba(212,175,55,0.2); text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+        .stepper { display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto 3rem auto; position: relative;}
+        .stepper::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #333; z-index: 1; transform: translateY(-50%);}
+        .step { background: var(--darker-bg); border: 2px solid #333; color: var(--text-muted); padding: 0.5rem 1.2rem; border-radius: 30px; font-weight: 600; z-index: 2; position: relative; transition: all 0.3s; font-size: 0.9rem;}
+        .step.active { border-color: var(--gold); color: var(--gold); background: var(--card-bg); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);}
+        .form-step { display: none; animation: fadeInUp 0.4s ease;}
+        .form-step.active { display: block; }
+        .step-buttons { display: flex; justify-content: space-between; margin-top: 2rem; }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials { padding: 6rem 5%; background-color: var(--darker-bg); text-align: center; }
+        .testimonials h2 { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
+        .testimonials > p { color: var(--text-muted); margin-bottom: 4rem; font-size: 1.1rem; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .test-card { background: var(--darker-bg); padding: 2.5rem; border-radius: 15px; border-left: 4px solid var(--gold); text-align: left; position: relative;}
+        .test-card::after { content: '\f10e'; font-family: 'FontAwesome'; position: absolute; top: 20px; right: 20px; font-size: 3rem; color: rgba(212, 175, 55, 0.1); }
+        .test-card .stars { color: var(--gold); margin-bottom: 1.5rem; font-size: 1.2rem;}
+        .test-card p { margin-bottom: 1.5rem; color: #ccc; font-style: italic; font-size: 1.05rem; }
+        .test-author { font-weight: 600; color: var(--gold); font-size: 1.1rem; }
+
+        /* --- MODALS (RANDEVU & ADMIN) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--darker-bg);
+            padding: 3rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--gold);
+            position: relative;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-btn:hover { color: var(--gold); }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block; margin-bottom: 0.8rem; font-size: 1rem; color: var(--text-muted);
+        }
+        .form-group input, .form-group select {
+            width: 100%; 
+            padding: 0.8rem;
+            font-size: 0.95rem;
+            background: var(--card-bg);
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none; border-color: var(--gold);
+        }
+
+        /* --- ADMIN PANEL UI --- */
+        .admin-modal {
+            max-width: 1000px;
+            display: flex;
+            padding: 0;
+            overflow: hidden;
+        }
+        .admin-sidebar {
+            width: 250px;
+            background: #111;
+            padding: 2rem 1rem;
+            border-right: 1px solid #333;
+        }
+        .admin-sidebar ul { list-style: none; margin-top: 2rem;}
+        .admin-sidebar li { padding: 1rem; color: var(--text-muted); cursor: pointer; border-radius: 5px; margin-bottom: 0.5rem;}
+        .admin-sidebar li:hover, .admin-sidebar li.active { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
+        .admin-sidebar li i { margin-right: 10px; }
+        
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            background: var(--darker-bg);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem;}
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;}
+        .stat-card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--gold); }
+        .stat-card h4 { font-size: 0.9rem; color: var(--text-muted); }
+        .stat-card h2 { font-size: 2rem; margin-top: 0.5rem; }
+        
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 1rem;}
+        .admin-table th, .admin-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #333; font-size: 0.9rem;}
+        .admin-table th { color: var(--gold); }
+        .status-badge { background: rgba(46, 204, 113, 0.2); color: #2ecc71; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            background-color: var(--darker-bg);
+            border-top: 1px solid #222;
+        }
+        .admin-link {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #444;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .admin-link:hover { color: var(--gold); }
+
+        /* --- WHATSAPP BUTONU --- */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse-wa 2s infinite;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .admin-modal { flex-direction: column; }
+            .admin-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #333; padding: 1rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">Lumière</a>
+        <nav>
+            <ul>
+                <li><a href="#hakkimizda">Hakkımızda</a></li>
+                <li><a href="#hizmetler">Hizmetlerimiz</a></li>
+                <li><a href="#fiyatlar">Paketler</a></li>
+                <li><a href="#" onclick="openAdmin()">Yönetim (Demo)</a></li>
+            </ul>
+            <a href="#randevu" class="btn btn-outline">Randevu Al</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="hakkimizda">
+        <h1>Lüksün ve Güzelliğin Adresi</h1>
+        <p>Uzman kadromuz, premium ürünlerimiz ve modern dokunuşlarımızla kendinizi özel hissetmeniz için tasarlandık. Şehrin kalbinde yenilenmenin keyfini çıkarın.</p>
+        <a href="#randevu" class="btn">Hemen Randevu Oluştur</a>
+    </section>
+
+    <section class="services" id="hizmetler">
+        <h2>Ayrıcalıklı Hizmetlerimiz</h2>
+        <div class="service-grid">
+            <div class="service-card scroll-reveal">
+                <i class="fa-solid fa-spa"></i>
+                <h3>Cilt Bakımı</h3>
+                <p>Kişiye özel analizlerle cildinizin ihtiyacı olan parlaklığı ve gençliği geri kazandırıyoruz.</p>
+            </div>
+            <div class="service-card scroll-reveal">
+                <i class="fa-solid fa-scissors"></i>
+                <h3>Saç Tasarımı</h3>
+                <p>Yüz hatlarınıza en uygun modern kesimler ve trend renklendirme işlemleri.</p>
+            </div>
+            <div class="service-card scroll-reveal">
+                <i class="fa-solid fa-hand-sparkles"></i>
+                <h3>Nail Art & Spa</h3>
+                <p>El ve ayak sağlığınızı korurken sanatla buluşturan medikal ve estetik spa ritüelleri.</p>
+            </div>
+            <div class="service-card scroll-reveal">
+                <i class="fa-solid fa-magic"></i>
+                <h3>Lazer Epilasyon</h3>
+                <p>Buz lazer teknolojisi ile acısız, konforlu ve kesin sonuç odaklı kalıcı pürüzsüzlük.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing scroll-reveal" id="fiyatlar">
+        <h2>Avantajlı Bakım Paketleri</h2>
+        <div class="price-grid">
+            <div class="price-card">
+                <h3>Standart Bakım</h3>
+                <div class="price-amount">₺1.250<span> / seans</span></div>
+                <ul class="price-list">
+                    <li>Klasik Cilt Bakımı (45 dk)</li>
+                    <li>Saç Kesimi & Fön</li>
+                    <li>Standart Manikür</li>
+                    <li>Ücretsiz Cilt Analizi</li>
+                </ul>
+                <a href="#randevu" class="btn btn-outline" style="width: 100%; padding: 1rem; font-size: 1rem; display: block; text-align: center;">Seç</a>
+            </div>
+            
+            <div class="price-card popular">
+                <h3>Premium Yenilenme</h3>
+                <div class="price-amount">₺2.800<span> / paket</span></div>
+                <ul class="price-list">
+                    <li>Hydrafacial Derin Cilt Bakımı</li>
+                    <li>Kişiye Özel Saç Tasarımı & Boya</li>
+                    <li>SPA Pedikür & Kalıcı Oje</li>
+                    <li>1 Bölge Lazer Epilasyon Hediyesi</li>
+                </ul>
+                <a href="#randevu" class="btn" style="width: 100%; padding: 1rem; font-size: 1rem; display: block; text-align: center;">Hemen Al</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 ADIMLI RANDEVU ALANI -->
+    <section class="appointment-section scroll-reveal" id="randevu">
+        <h2>Hızlı Randevu Oluştur</h2>
+        <p>Sıra beklemeden, sadece birkaç adımda randevunuzu planlayın.</p>
+        
+        <div class="stepper">
+            <div class="step active" id="indicator-1">1. Hizmet</div>
+            <div class="step" id="indicator-2">2. Zaman</div>
+            <div class="step" id="indicator-3">3. Onay</div>
+        </div>
+
+        <div class="form-container">
+            <!-- Adım 1 -->
+            <div class="form-step active" id="step-1">
+                <div class="form-group">
+                    <label>Hizmet Seçin</label>
+                    <select id="service-select">
+                        <option>Cilt Bakımı</option>
+                        <option>Saç Tasarımı</option>
+                        <option>Lazer Epilasyon</option>
+                        <option>Nail Art & Spa</option>
+                        <option>Diğer</option>
+                    </select>
+                </div>
+                <div class="step-buttons" style="justify-content: flex-end;">
+                    <button class="btn" onclick="nextStep(2)">İleri <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></button>
+                </div>
+            </div>
+
+            <!-- Adım 2 -->
+            <div class="form-step" id="step-2">
+                <div class="form-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 150px;">
+                        <label>Tarih Seçin</label>
+                        <input type="date" id="date-select">
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <label>Saat Seçin</label>
+                        <input type="time" id="time-select">
+                    </div>
+                </div>
+                <div class="step-buttons">
+                    <button class="btn btn-outline" onclick="prevStep(1)">Geri</button>
+                    <button class="btn" onclick="nextStep(3)">İleri <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></button>
+                </div>
+            </div>
+
+            <!-- Adım 3 -->
+            <div class="form-step" id="step-3">
+                <div class="form-group">
+                    <label>Adınız Soyadınız</label>
+                    <input type="text" id="name-input" placeholder="Örn: Ayşe Yılmaz">
+                </div>
+                <div class="form-group">
+                    <label>Telefon Numaranız</label>
+                    <input type="tel" id="phone-input" placeholder="0555 123 45 67">
+                </div>
+                <div class="step-buttons">
+                    <button class="btn btn-outline" onclick="prevStep(2)">Geri</button>
+                    <button class="btn" onclick="finishAppointment()">Tamamla <i class="fa-solid fa-check" style="margin-left: 5px;"></i></button>
+                </div>
+            </div>
+
+            <!-- Başarılı Mesajı -->
+            <div class="form-step" id="step-success" style="text-align: center; padding: 2rem 0;">
+                <i class="fa-regular fa-circle-check" style="font-size: 4rem; color: #2ecc71; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.8rem; color: var(--gold); margin-bottom: 1rem;">Randevunuz Alındı!</h3>
+                <p style="color: var(--text-muted);">Talebiniz bize ulaştı. Onay için en kısa sürede sizinle iletişime geçeceğiz. Bizi tercih ettiğiniz için teşekkür ederiz.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials scroll-reveal">
+        <h2>Mutlu Müşterilerimiz</h2>
+        <p>Deneyimlerini bizimle paylaşan misafirlerimize teşekkür ederiz.</p>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p>"İçeri girdiğiniz an sizi harika bir atmosfer karşılıyor. Cilt bakımımdan inanılmaz memnun kaldım. Kesinlikle tavsiye ediyorum!"</p>
+                <div class="test-author">- Ayşe Yılmaz</div>
+            </div>
+            <div class="test-card">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <p>"Saç kesimi konusunda çok titizimdir ama buradaki ekip tam olarak ne istediğimi anladı. Yeni favori salonum burası."</p>
+                <div class="test-author">- Selin Demir</div>
+            </div>
+            <div class="test-card">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p>"Lazer epilasyon süreci boyunca gösterdikleri ilgi ve cihazların acısız olması beni çok şaşırttı. Teşekkürler Lumière!"</p>
+                <div class="test-author">- Burcu Kaya</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2 class="logo" style="margin-bottom: 1rem;">Lumière</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">Nişantaşı, İstanbul | +90 555 123 45 67</p>
+        <p>&copy; 2026 Lumière Güzellik Salonu. Tüm hakları saklıdır.</p>
+        <a class="admin-link" onclick="openAdmin()">[ Yönetici Paneline Giriş Yap ]</a>
+    </footer>
+
+    <!-- ADMIN DASHBOARD MODAL (DEMO) -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-content admin-modal">
+            <div class="admin-sidebar">
+                <h2 style="color: var(--gold); font-size: 1.5rem;">Lumière Admin</h2>
+                <ul>
+                    <li class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</li>
+                    <li><i class="fa-regular fa-calendar-check"></i> Randevular <span style="background: red; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.7rem; float: right;">3</span></li>
+                    <li><i class="fa-solid fa-users"></i> Müşteriler</li>
+                    <li><i class="fa-solid fa-gear"></i> Ayarlar</li>
+                </ul>
+            </div>
+            <div class="admin-main">
+                <i class="fa-solid fa-xmark close-btn" onclick="closeAdmin()"></i>
+                <div class="admin-header">
+                    <h3>Hoş Geldin, Yönetici</h3>
+                    <button class="btn btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="closeAdmin()">Çıkış Yap</button>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Bugünkü Randevular</h4>
+                        <h2>12</h2>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Aylık Kazanç</h4>
+                        <h2>₺84.500</h2>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Yeni Müşteri</h4>
+                        <h2>+24</h2>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Son Randevu Talepleri</h3>
+                <table class="admin-table">
+                    <tr>
+                        <th>Müşteri</th>
+                        <th>Hizmet</th>
+                        <th>Tarih / Saat</th>
+                        <th>Durum</th>
+                    </tr>
+                    <tr>
+                        <td>Zeynep Kaya</td>
+                        <td>Cilt Bakımı</td>
+                        <td>Bugün, 14:00</td>
+                        <td><span class="status-badge">Onaylandı</span></td>
+                    </tr>
+                    <tr>
+                        <td>Elif Demir</td>
+                        <td>Lazer Epilasyon</td>
+                        <td>Yarın, 10:30</td>
+                        <td><span class="status-badge" style="background: rgba(241, 196, 15, 0.2); color: #f1c40f;">Beklemede</span></td>
+                    </tr>
+                    <tr>
+                        <td>Burcu Şahin</td>
+                        <td>Saç Tasarımı</td>
+                        <td>Yarın, 16:00</td>
+                        <td><span class="status-badge">Onaylandı</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHATSAPP BUTONU -->
+    <a href="https://wa.me/905551234567" class="whatsapp-btn" target="_blank" title="Bize WhatsApp'tan Ulaşın">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- JAVASCRIPT: Animasyonlar ve Modallar İçin -->
+    <script>
+        // Scroll Animasyonları
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+
+        // 3 Adımlı Randevu Sistemi Kontrolleri
+        function nextStep(step) {
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step-' + step).classList.add('active');
+            updateStepper(step);
+        }
+        function prevStep(step) {
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step-' + step).classList.add('active');
+            updateStepper(step);
+        }
+        function updateStepper(step) {
+            document.querySelectorAll('.step').forEach((el, index) => {
+                if(index + 1 <= step) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        }
+        function finishAppointment() {
+            document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step-success').classList.add('active');
+            document.querySelector('.stepper').style.display = 'none';
+        }
+
+        // Admin Modalı Kontrolleri
+        function openAdmin() { document.getElementById('adminModal').classList.add('active'); }
+        function closeAdmin() { document.getElementById('adminModal').classList.remove('active'); }
+    </script>
+</body>
+</html>
